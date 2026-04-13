@@ -146,4 +146,4 @@ https://github.com/thebenlamm/mergegate
 
 ## License
 
-TBD
+MIT — see [LICENSE](LICENSE).
