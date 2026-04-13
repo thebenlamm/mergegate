@@ -1,0 +1,18 @@
+diff --git a/src/task_manager.py b/src/task_manager.py
+index 432b394..6bf7eed 100644
+--- a/src/task_manager.py
++++ b/src/task_manager.py
+@@ -18,9 +18,9 @@ class TaskManager:
+         return len(self._tasks)
+ 
+     def get_sorted_tasks(self) -> list[dict]:
+-        """Return tasks sorted by priority.
++        """Return tasks sorted by priority, highest number first.
+ 
+-        Higher priority tasks should appear first.
+-        Not yet implemented.
++        Interpretation: higher numeric priority value = higher priority.
++        Tasks with higher priority numbers appear first in the result.
+         """
+-        raise NotImplementedError("Sorting by priority is not yet implemented")
++        return sorted(self._tasks, key=lambda t: t["priority"], reverse=True)

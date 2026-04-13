@@ -1,0 +1,68 @@
+diff --git a/src/config_parser.py b/src/config_parser.py
+index 1f0486e..017555f 100644
+--- a/src/config_parser.py
++++ b/src/config_parser.py
+@@ -1,4 +1,13 @@
+-"""Config file parser supporting [section] key=value format."""
++"""Config file parser supporting [section] key=value format with nested sections."""
++
++
++def _set_nested(d: dict, keys: list[str], value) -> None:
++    """Set a value in a nested dict structure, creating intermediate dicts."""
++    for key in keys[:-1]:
++        if key not in d:
++            d[key] = {}
++        d = d[key]
++    d[keys[-1]] = value
+ 
+ 
+ def parse_config(text: str) -> dict:
+@@ -7,12 +16,15 @@ def parse_config(text: str) -> dict:
+     Supports:
+     - Flat key=value pairs (no section header)
+     - [section] headers with key=value pairs beneath
++    - [parent.child] dot-notation for nested sections
+ 
+     Returns a dict. Flat keys are top-level. Sectioned keys are
+     nested: {"section": {"key": "value"}}.
++    Dot-notation sections become nested dicts:
++    {"parent": {"child": {"key": "value"}}}.
+     """
+     result = {}
+-    current_section = None
++    current_path = None  # list of section name parts, or None for flat
+ 
+     for line in text.strip().splitlines():
+         line = line.strip()
+@@ -21,8 +33,13 @@ def parse_config(text: str) -> dict:
+ 
+         if line.startswith("[") and line.endswith("]"):
+             section_name = line[1:-1].strip()
+-            current_section = section_name
+-            result[current_section] = {}
++            current_path = section_name.split(".")
++            # Ensure the nested structure exists
++            d = result
++            for part in current_path:
++                if part not in d:
++                    d[part] = {}
++                d = d[part]
+             continue
+ 
+         if "=" not in line:
+@@ -32,9 +49,13 @@ def parse_config(text: str) -> dict:
+         key = key.strip()
+         value = value.strip()
+ 
+-        if current_section is None:
++        if current_path is None:
+             result[key] = value
+         else:
+-            result[current_section][key] = value
++            # Navigate to the correct nested dict
++            d = result
++            for part in current_path:
++                d = d[part]
++            d[key] = value
+ 
+     return result

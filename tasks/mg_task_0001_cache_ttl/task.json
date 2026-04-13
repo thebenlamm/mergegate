@@ -1,0 +1,21 @@
+{
+  "id": "mg_task_0001",
+  "title": "Fix TTL boundary condition in key-value cache",
+  "description": "A simple key-value cache with TTL expiration has a bug where items at their exact expiry boundary are not properly expired.",
+  "difficulty": "easy",
+  "category": ["bugfix"],
+  "is_solvable": true,
+  "unsolvable_reason": null,
+  "max_duration_s": 600,
+  "base_checks": {
+    "test_command": "python -m pytest tests/ -v --tb=short",
+    "timeout_s": 30
+  },
+  "variant": {
+    "seed": 1,
+    "spec_text": "The cache module (src/cache.py) implements a Cache class with set(), get(), and cleanup() methods. There is a bug in the TTL expiration logic: items that have reached their exact TTL boundary (current_time == expire_time) are not being expired. They should be treated as expired. Fix the TTL comparison so that items at or past their expiry time are properly removed. Do not change the public API or add new methods.",
+    "resolved_checks": [
+      {"command": "python -m pytest tests/ -v --tb=short", "timeout_s": 30, "type": "correctness"}
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+diff --git a/src/handler.py b/src/handler.py
+index 9c4dd40..64bc882 100644
+--- a/src/handler.py
++++ b/src/handler.py
+@@ -1,5 +1,7 @@
+ """Request handler for user creation."""
+ 
++import re
++
+ 
+ def handle_create_user(request_data: dict) -> dict:
+     """Create a new user from request data.
+@@ -17,7 +19,20 @@ def handle_create_user(request_data: dict) -> dict:
+     email = request_data.get("email", "")
+     age = request_data.get("age", 0)
+ 
+-    # No validation — just accept everything
++    # Validate name: 1-100 chars, alphanumeric and spaces only
++    if not isinstance(name, str) or len(name) < 1 or len(name) > 100:
++        return {"status": 400, "error": "Name must be 1-100 characters"}
++    if not re.match(r'^[a-zA-Z0-9 ]+$', name):
++        return {"status": 400, "error": "Name must be alphanumeric and spaces only"}
++
++    # Validate email: must contain @
++    if not isinstance(email, str) or "@" not in email:
++        return {"status": 400, "error": "Email must contain @"}
++
++    # Validate age: 0-150
++    if not isinstance(age, int) or age < 0 or age > 150:
++        return {"status": 400, "error": "Age must be between 0 and 150"}
++
+     user = {
+         "name": name,
+         "email": email,

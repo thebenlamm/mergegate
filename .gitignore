@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment variables — contain secrets
+.env
+.env.local
+.env.*.local
+.env.prod
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+
+# Docker
+docker-compose.override.yml
+
+# Logs
+*.log
+
+# GSD tooling config (not useful outside Claude Code)
+.planning/config.json
+.claude/context.md
+
+# MergeGate variant tarballs (generated at seed time)
+var/

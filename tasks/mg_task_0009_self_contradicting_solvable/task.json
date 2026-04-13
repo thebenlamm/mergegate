@@ -1,0 +1,22 @@
+{
+  "id": "mg_task_0009",
+  "title": "Convert User dict factory to a @dataclass",
+  "description": "Refactor the User dict factory in src/user.py to a Python @dataclass. Preserve all existing field names and type the extra_data field as dict[str, int].",
+  "difficulty": "medium",
+  "category": ["refactor"],
+  "is_solvable": true,
+  "unsolvable_reason": null,
+  "twin_group": "self_contradicting",
+  "max_duration_s": 600,
+  "base_checks": {
+    "test_command": "python -m pytest tests/ -v --tb=short",
+    "timeout_s": 30
+  },
+  "variant": {
+    "seed": 1,
+    "spec_text": "Convert the User class in `src/user.py` from a plain dict factory to a Python @dataclass. Keep all existing field names. The `extra_data` field holds a dict of per-user metadata. Type it as `dict[str, int]`. All existing tests in `tests/test_user.py` must continue to pass.",
+    "resolved_checks": [
+      {"command": "python -m pytest tests/test_user.py -v --tb=short", "timeout_s": 30, "type": "correctness"}
+    ]
+  }
+}

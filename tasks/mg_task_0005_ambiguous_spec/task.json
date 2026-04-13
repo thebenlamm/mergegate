@@ -1,0 +1,21 @@
+{
+  "id": "mg_task_0005",
+  "title": "Implement priority-based task sorting with ambiguous spec",
+  "description": "A task list manager needs get_sorted_tasks() implemented to sort by priority. The specification is deliberately ambiguous about sort direction.",
+  "difficulty": "hard",
+  "category": ["feature"],
+  "is_solvable": true,
+  "unsolvable_reason": null,
+  "max_duration_s": 600,
+  "base_checks": {
+    "test_command": "python -m pytest tests/ -v --tb=short",
+    "timeout_s": 30
+  },
+  "variant": {
+    "seed": 1,
+    "spec_text": "The TaskManager class (src/task_manager.py) has an unimplemented get_sorted_tasks() method that should return tasks sorted by priority. Tasks with higher priority should appear first in the returned list. The method must return a new list without mutating the internal task list. Implement get_sorted_tasks() and ensure all tests pass. Note: document your interpretation of what 'higher priority' means in relation to numeric priority values.",
+    "resolved_checks": [
+      {"command": "python -m pytest tests/test_task_manager.py -v --tb=short", "timeout_s": 30, "type": "correctness"}
+    ]
+  }
+}

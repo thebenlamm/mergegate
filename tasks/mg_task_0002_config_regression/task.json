@@ -1,0 +1,22 @@
+{
+  "id": "mg_task_0002",
+  "title": "Add nested section support to config parser",
+  "description": "A config file parser that reads [section] key=value format needs to be extended to support nested sections via dot notation, without breaking existing behavior.",
+  "difficulty": "medium",
+  "category": ["refactor"],
+  "is_solvable": true,
+  "unsolvable_reason": null,
+  "max_duration_s": 600,
+  "base_checks": {
+    "test_command": "python -m pytest tests/ -v --tb=short",
+    "timeout_s": 30
+  },
+  "variant": {
+    "seed": 1,
+    "spec_text": "The config parser (src/config_parser.py) currently supports flat key=value pairs and single-level [section] headers. Add support for nested sections using dot notation: [parent.child] should produce {'parent': {'child': {'key': 'value'}}}. Multiple nested sections under the same parent (e.g., [database.primary] and [database.replica]) must merge correctly under the shared parent. All existing tests in tests/test_config.py must continue to pass (backward compatibility). The new nested section tests are in tests/test_nested.py.",
+    "resolved_checks": [
+      {"command": "python -m pytest tests/test_nested.py -v --tb=short", "timeout_s": 30, "type": "correctness"},
+      {"command": "python -m pytest tests/test_config.py -v --tb=short", "timeout_s": 15, "type": "regression"}
+    ]
+  }
+}

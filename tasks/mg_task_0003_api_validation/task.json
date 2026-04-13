@@ -1,0 +1,21 @@
+{
+  "id": "mg_task_0003",
+  "title": "Add input validation to user creation handler",
+  "description": "A request handler for creating users currently accepts any input without validation. It needs proper input validation for name, email, and age fields.",
+  "difficulty": "medium",
+  "category": ["feature"],
+  "is_solvable": true,
+  "unsolvable_reason": null,
+  "max_duration_s": 600,
+  "base_checks": {
+    "test_command": "python -m pytest tests/ -v --tb=short",
+    "timeout_s": 30
+  },
+  "variant": {
+    "seed": 1,
+    "spec_text": "The handler (src/handler.py) has a handle_create_user(request_data: dict) function that creates users from a dict with 'name', 'email', and 'age' fields. Currently it accepts any input without validation. Add input validation with these rules: (1) name must be a string of 1-100 characters containing only alphanumeric characters and spaces, (2) email must be a string containing '@', (3) age must be an integer between 0 and 150 inclusive. On invalid input, return {'status': 400, 'error': '<description>'} instead of creating the user. Valid input should still return {'status': 201, 'user': {...}}. You may use src/validators.py for helper functions or put validation inline.",
+    "resolved_checks": [
+      {"command": "python -m pytest tests/test_handler.py -v --tb=short", "timeout_s": 30, "type": "correctness"}
+    ]
+  }
+}

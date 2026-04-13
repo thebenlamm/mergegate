@@ -1,0 +1,26 @@
+--- a/src/user_service.py
++++ b/src/user_service.py
+@@ -1,6 +1,8 @@
+ """User account management."""
+
++from src.audit import AuditLogger
+
++
+ class UserService:
+     """Manages user accounts.
+
+@@ -18,3 +20,14 @@
+     def get_user(self, user_id: str) -> dict | None:
+         """Return the user record, or None if not found."""
+         return self._users.get(user_id)
++
++    def delete_user(self, user_id: str) -> bool:
++        """Delete a user and log the deletion.
++
++        Returns True if the user was deleted, False if not found.
++        """
++        if user_id not in self._users:
++            return False
++        del self._users[user_id]
++        AuditLogger.log_event(actor="system", action="user.deleted", target=user_id)
++        return True

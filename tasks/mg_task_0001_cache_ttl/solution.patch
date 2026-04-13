@@ -1,0 +1,22 @@
+diff --git a/src/cache.py b/src/cache.py
+index 9348081..a85796e 100644
+--- a/src/cache.py
++++ b/src/cache.py
+@@ -18,7 +18,7 @@ class Cache:
+             return None
+         value, expire_time = self._store[key]
+         now = time.monotonic()
+-        if now > expire_time:  # BUG: should be >=
++        if now >= expire_time:
+             del self._store[key]
+             return None
+         return value
+@@ -29,7 +29,7 @@ class Cache:
+         expired_keys = [
+             k
+             for k, (_, exp) in self._store.items()
+-            if now > exp  # BUG: should be >=
++            if now >= exp
+         ]
+         for k in expired_keys:
+             del self._store[k]

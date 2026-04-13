@@ -1,0 +1,49 @@
+[project]
+name = "mergegate"
+version = "0.1.0"
+description = "Delegation benchmark for AI coding agents"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]>=0.115,<1",
+    "asyncpg>=0.31,<1",
+    "alembic>=1.14,<2",
+    "pydantic>=2.9,<3",
+    "pydantic-settings>=2.13,<3",
+    "structlog>=25,<26",
+    "uuid-utils>=0.10,<1",
+    "bcrypt>=4.0,<5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8,<9",
+    "pytest-asyncio>=1.0,<2",
+    "httpx>=0.28,<1",
+    "coverage>=7,<8",
+]
+scripts = [
+    "anthropic>=0.90,<1",
+    "openai>=2.0,<3",
+    "python-dotenv>=1.0,<2",
+]
+
+[tool.setuptools.packages.find]
+include = ["api*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+exclude = [".claude/worktrees"]
+
+[tool.coverage.run]
+source = ["api"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 80

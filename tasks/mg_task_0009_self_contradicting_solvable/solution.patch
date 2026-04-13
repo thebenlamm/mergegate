@@ -1,0 +1,17 @@
+--- a/src/user.py
++++ b/src/user.py
+@@ -1,6 +1,11 @@
+ """User record factory."""
+
++from dataclasses import dataclass, field
+
+-def User(name: str, extra_data: dict) -> dict:
+-    """Create a new user record as a dict."""
+-    return {"name": name, "extra_data": extra_data}
++
++@dataclass
++class User:
++    """A user record."""
++
++    name: str
++    extra_data: dict[str, int] = field(default_factory=dict)
