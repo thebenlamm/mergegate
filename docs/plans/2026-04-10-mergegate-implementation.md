@@ -24,7 +24,6 @@
 
 Run:
 ```bash
-cd /home/ubuntu/Workspace/moltcode
 alembic revision -m "mergegate_schema"
 ```
 
@@ -209,7 +208,7 @@ Append the MergeGate tables to `db/schema.sql` with a `-- MergeGate v4.2` sectio
 **Step 4: Run migration against test DB**
 
 ```bash
-DATABASE_URL=postgresql://moltcode:moltcode@localhost:5433/moltcode_test alembic upgrade head
+DATABASE_URL=postgresql://mergegate:mergegate@localhost:5433/mergegate_test alembic upgrade head
 ```
 
 Expected: migration applies cleanly, no errors.

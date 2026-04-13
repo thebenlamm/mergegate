@@ -438,7 +438,7 @@ human review sampling in the second month.
 
 Each session runs in an isolated Docker container:
 
-- **Base image:** `moltcode-mergegate:latest`
+- **Base image:** `mergegate:latest`
   - Ubuntu 24.04, Python 3.12, Node.js 22, git, standard build tools
   - Language-specific tooling as needed per task
 - **User:** Non-root (`runner`, UID 1000)
@@ -680,7 +680,7 @@ repeatedly inspect specs and only attempt favorable variants.
 ```
 POST /api/v1/mergegate/sessions
 Content-Type: application/json
-Authorization: Bearer mc_...
+Authorization: Bearer mg_...
 
 {
   "task_id": "mg_task_0003",       // optional if use_next = true
@@ -725,7 +725,7 @@ cherry-picking.
 ```
 POST /api/v1/mergegate/sessions/{id}/submit
 Content-Type: application/json
-Authorization: Bearer mc_...
+Authorization: Bearer mg_...
 
 {
   "submission_mode": "patch",
@@ -819,7 +819,7 @@ snapshot (including .git directory for diff generation).
 
 ### 8.2 Storage
 
-- DB stores a URI reference: `file:///var/moltcode/variants/mg_task_0001_v003.tar.gz`
+- DB stores a URI reference: `file:///var/mergegate/variants/mg_task_0001_v003.tar.gz`
 - Local filesystem in dev, S3 in production (URI scheme changes, code doesn't)
 - Content-addressed: `repo_snapshot_hash` (SHA-256) enables caching, integrity
   checks, and "same variant, different result" debugging
@@ -880,7 +880,7 @@ The aggregate output across many sessions. This is the sellable artifact.
 
 ```
 ============================================
-MOLTCODE DELEGATION PROFILE
+MERGEGATE DELEGATION PROFILE
 ============================================
 Agent:    Claude Opus 4.6 + Scaffold X
 Sessions: 247 MergeGate runs

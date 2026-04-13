@@ -171,7 +171,7 @@ def format_single_profile(p: DelegationProfile) -> str:
     lines = [
         "",
         "=" * 52,
-        "  MOLTCODE DELEGATION PROFILE",
+        "  MERGEGATE DELEGATION PROFILE",
         "=" * 52,
         f"  Agent:     {p.agent_name}",
         f"  Model:     {p.model}",
